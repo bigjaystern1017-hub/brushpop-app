@@ -43,10 +43,13 @@ export default defineConfig({
         enabled: false,
       },
       workbox: {
-        // Precache everything Vite builds + all public-folder assets
+        // Precache everything Vite builds + all public-folder assets.
+        // Raise the limit to 6 MB so brush-song-v2.m4a (4.4 MB) and
+        // brushpop-logo.png (2.2 MB) are included — both are critical offline.
         globPatterns: [
           "**/*.{js,css,html,ico,png,svg,jpg,jpeg,webp,gif,woff,woff2,ttf,otf,json,m4a,mp3,wav,ogg}",
         ],
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MB
         // Take control immediately on install — no waiting for tabs to close
         skipWaiting: true,
         clientsClaim: true,
