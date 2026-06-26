@@ -2,6 +2,16 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useClinic } from "@/hooks/useClinic";
 
+const INSTALL_DISMISSED_KEY = "brushpop_install_dismissed";
+
+function isStandalone(): boolean {
+  return window.matchMedia("(display-mode: standalone)").matches;
+}
+
+function isInstallDismissed(): boolean {
+  return localStorage.getItem(INSTALL_DISMISSED_KEY) === "true";
+}
+
 interface SplashProps {
   onComplete: () => void;
 }
@@ -9,6 +19,7 @@ interface SplashProps {
 export default function Splash({ onComplete }: SplashProps) {
   const clinic = useClinic();
   const [visible, setVisible] = useState(true);
+  const [showInstall, setShowInstall] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -16,6 +27,17 @@ export default function Splash({ onComplete }: SplashProps) {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!isStandalone() && !isInstallDismissed()) {
+      setShowInstall(true);
+    }
+  }, []);
+
+  function dismissInstall() {
+    localStorage.setItem(INSTALL_DISMISSED_KEY, "true");
+    setShowInstall(false);
+  }
 
   return (
     <AnimatePresence onExitComplete={onComplete}>
@@ -120,6 +142,148 @@ export default function Splash({ onComplete }: SplashProps) {
           >
             Pop the plaque. Reveal the prize.
           </motion.p>
+
+          {/* Install prompt — floating bar pinned to bottom, above disclaimer area */}
+          {showInstall && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.35, ease: "easeOut" }}
+              style={{
+                position: "absolute",
+                bottom: "24px",
+                left: "5%",
+                width: "90%",
+                zIndex: 20,
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "12px",
+                  boxShadow: "0 4px 16px rgba(10,22,40,0.18)",
+                  padding: "12px 14px 10px",
+                  position: "relative",
+                  fontFamily: "'DM Sans', sans-serif",
+                }}
+              >
+                {/* Dismiss X button */}
+                <button
+                  onClick={dismissInstall}
+                  aria-label="Dismiss install prompt"
+                  style={{
+                    position: "absolute",
+                    top: "8px",
+                    right: "10px",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "2px 4px",
+                    color: "#94A3B8",
+                    fontSize: "14px",
+                    lineHeight: 1,
+                  }}
+                >
+                  ✕
+                </button>
+
+                {/* Three steps in a horizontal row */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    gap: "4px",
+                    paddingRight: "18px",
+                    marginBottom: "8px",
+                  }}
+                >
+                  {/* Step 1 */}
+                  <div style={{ flex: 1, textAlign: "center" }}>
+                    <div style={{ fontSize: "18px", marginBottom: "3px" }}>📲</div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#0A1628",
+                        fontWeight: 600,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      Open in Safari
+                    </div>
+                  </div>
+
+                  {/* Separator arrow */}
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#94A3B8",
+                      alignSelf: "center",
+                      flexShrink: 0,
+                      paddingTop: "2px",
+                    }}
+                  >
+                    →
+                  </div>
+
+                  {/* Step 2 */}
+                  <div style={{ flex: 2, textAlign: "center" }}>
+                    <div style={{ fontSize: "18px", marginBottom: "3px" }}>⬆️</div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#0A1628",
+                        fontWeight: 600,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      Tap Share → Add to Home Screen
+                    </div>
+                  </div>
+
+                  {/* Separator arrow */}
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#94A3B8",
+                      alignSelf: "center",
+                      flexShrink: 0,
+                      paddingTop: "2px",
+                    }}
+                  >
+                    →
+                  </div>
+
+                  {/* Step 3 */}
+                  <div style={{ flex: 1, textAlign: "center" }}>
+                    <div style={{ fontSize: "18px", marginBottom: "3px" }}>🏠</div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#0A1628",
+                        fontWeight: 600,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      Launch from Home Screen
+                    </div>
+                  </div>
+                </div>
+
+                {/* Subtext */}
+                <div
+                  style={{
+                    fontSize: "11px",
+                    color: "#94A3B8",
+                    textAlign: "center",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  For the best experience, add BrushPop to your home screen.
+                </div>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
       )}
     </AnimatePresence>
