@@ -578,11 +578,11 @@ export default function Brush() {
 
       {/* UI Overlay */}
       <div className="absolute inset-0 z-20 flex flex-col justify-between pointer-events-none">
-        <div className="p-4 flex justify-between items-start pointer-events-auto">
+        <div className="pt-14 px-4 flex justify-between items-start pointer-events-auto">
           {/* Cancel */}
           <button
             onClick={handleCancel}
-            className="p-3 bg-black/30 backdrop-blur-md rounded-full text-white active:scale-95 transition-all"
+            className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center bg-black/30 backdrop-blur-md rounded-full text-white active:scale-95 transition-all"
           >
             <X className="w-6 h-6" />
           </button>
@@ -631,7 +631,7 @@ export default function Brush() {
                 else if (isBrushing) audioRef.current.play().catch(() => {});
               }
             }}
-            className="p-3 bg-black/30 backdrop-blur-md rounded-full text-white active:scale-95 transition-all"
+            className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center bg-black/30 backdrop-blur-md rounded-full text-white active:scale-95 transition-all"
           >
             <span className="text-lg">{muted ? "🔇" : "🔊"}</span>
           </button>
