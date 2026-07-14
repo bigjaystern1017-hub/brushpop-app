@@ -104,25 +104,42 @@ export default function Splash({ onComplete }: SplashProps) {
             />
           </div>
 
-          {/* Dentist branding pill — directly below logo */}
+          {/* Clinic logo block — shown above pill only when a real (non-default) logo is set */}
+          {clinic.showBranding &&
+            clinic.logoUrl &&
+            clinic.logoUrl !== "/brushpop-logo.png" && (
+              <motion.div
+                className="relative z-10 mt-3"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.4, ease: "easeOut" }}
+              >
+                <div
+                  style={{
+                    backgroundColor: "#ffffff",
+                    borderRadius: "12px",
+                    padding: "8px",
+                    display: "inline-block",
+                  }}
+                >
+                  <img
+                    src={clinic.logoUrl}
+                    alt={clinic.name}
+                    style={{ width: "120px", height: "auto", display: "block" }}
+                  />
+                </div>
+              </motion.div>
+            )}
+
+          {/* Dentist branding pill — directly below logo block */}
           {clinic.showBranding && (
             <motion.div
-              className="flex items-center gap-3 bg-white/82 backdrop-blur-sm rounded-full px-4 py-2.5 shadow-md mt-3 relative z-10"
+              className="flex items-center bg-white/82 backdrop-blur-sm rounded-full px-4 py-2.5 shadow-md mt-3 relative z-10"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.4, ease: "easeOut" }}
             >
-              {/* Clinic logo circle */}
-              <div className="w-9 h-9 rounded-full bg-sky-50 border-2 border-white/80 flex items-center justify-center overflow-hidden flex-shrink-0 shadow-sm">
-                {clinic.logoUrl ? (
-                  <img src={clinic.logoUrl} alt={clinic.name} className="w-full h-full object-contain p-0.5" />
-                ) : (
-                  <span className="text-xl leading-none">🦷</span>
-                )}
-              </div>
-
-              {/* Text */}
-              <div className="text-left pr-1">
+              <div className="text-center">
                 <p className="text-[10px] font-semibold text-foreground/50 uppercase tracking-wide leading-none mb-0.5">
                   Presented by
                 </p>
