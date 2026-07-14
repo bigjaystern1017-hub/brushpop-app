@@ -104,12 +104,13 @@ export default function Splash({ onComplete }: SplashProps) {
             />
           </div>
 
-          {/* Clinic logo block — shown above pill only when a real (non-default) logo is set */}
+          {/* Clinic logo block — shown when a real (non-default) logo is set */}
           {clinic.showBranding &&
             clinic.logoUrl &&
             clinic.logoUrl !== "/brushpop-logo.png" && (
               <motion.div
-                className="relative z-10 mt-3"
+                className="relative z-10"
+                style={{ marginTop: "24px" }}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.4, ease: "easeOut" }}
@@ -131,10 +132,16 @@ export default function Splash({ onComplete }: SplashProps) {
               </motion.div>
             )}
 
-          {/* Dentist branding pill — directly below logo block */}
+          {/* Dentist branding pill — 24px below logo (or 8px below clinic logo block) */}
           {clinic.showBranding && (
             <motion.div
-              className="flex items-center bg-white/82 backdrop-blur-sm rounded-full px-4 py-2.5 shadow-md mt-3 relative z-10"
+              className="flex items-center bg-white/82 backdrop-blur-sm rounded-full px-4 py-2.5 shadow-md relative z-10"
+              style={{
+                marginTop:
+                  clinic.logoUrl && clinic.logoUrl !== "/brushpop-logo.png"
+                    ? "8px"
+                    : "24px",
+              }}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.4, ease: "easeOut" }}
@@ -150,15 +157,37 @@ export default function Splash({ onComplete }: SplashProps) {
             </motion.div>
           )}
 
-          {/* Tagline — below branding pill */}
+          {/* Tagline — between pill and mascot */}
           <motion.p
-            className="text-foreground/60 font-bold text-lg mt-3 relative z-10"
+            className="relative z-10"
+            style={{
+              fontFamily: "'Fredoka', sans-serif",
+              fontSize: "18px",
+              color: "#ffffff",
+              fontWeight: 500,
+              marginTop: "10px",
+              textAlign: "center",
+            }}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.4 }}
+            transition={{ delay: 0.55, duration: 0.4 }}
           >
             Pop the plaque. Reveal the prize.
           </motion.p>
+
+          {/* Mascot — floating animation, 220px wide, no background */}
+          <motion.img
+            src="/brushpop_mascot_clean_transparent.png"
+            alt="BrushPop mascot"
+            className="relative z-10"
+            style={{ width: "220px", height: "auto", marginTop: "32px" }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: [0, -8, 0] }}
+            transition={{
+              opacity: { delay: 0.65, duration: 0.4 },
+              y: { delay: 0.65, duration: 3, repeat: Infinity, ease: "easeInOut" },
+            }}
+          />
 
           {/* Install prompt — floating bar pinned to bottom, above disclaimer area */}
           {showInstall && (
