@@ -64,6 +64,14 @@ export const CLINICS: Record<string, ClinicConfig> = {
     logoUrl: "/brushpop-logo.png",
     showBranding: true,
   },
+  mainstdental: {
+    name: "Main Street Dental",
+    phone: "(555) 123-4567",
+    bookingUrl: "https://brushpop.net",
+    description: "We're a family-focused dental practice dedicated to making every visit fun and stress-free. We love helping kids build healthy habits that last a lifetime!",
+    logoUrl: "/brushpop-logo.png",
+    showBranding: true,
+  },
 };
 
 export const DEFAULT_CLINIC: ClinicConfig = {
