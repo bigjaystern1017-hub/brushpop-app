@@ -31,7 +31,9 @@ export default function Splash({ onComplete }: SplashProps) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#0A1628",
+            backgroundImage: "url('/app-bg.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "top center",
             padding: "32px",
           }}
         >
@@ -50,10 +52,11 @@ export default function Splash({ onComplete }: SplashProps) {
             style={{
               fontFamily: "'Fredoka', sans-serif",
               fontSize: "20px",
-              color: "#FF6B7A",
+              color: "#0A1628",
               fontWeight: 500,
               marginTop: "12px",
               textAlign: "center",
+              textShadow: "0 1px 3px rgba(255,255,255,0.4)",
             }}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,13 +92,13 @@ export default function Splash({ onComplete }: SplashProps) {
                 <div style={{
                   flex: 1,
                   height: "1px",
-                  backgroundColor: "rgba(255,255,255,0.2)"
+                  backgroundColor: "rgba(10,22,40,0.25)"
                 }} />
                 <span
                   style={{
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: "11px",
-                    color: "rgba(255,255,255,0.4)",
+                    color: "rgba(10,22,40,0.5)",
                     fontWeight: 600,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
@@ -107,7 +110,7 @@ export default function Splash({ onComplete }: SplashProps) {
                 <div style={{
                   flex: 1,
                   height: "1px",
-                  backgroundColor: "rgba(255,255,255,0.2)"
+                  backgroundColor: "rgba(10,22,40,0.25)"
                 }} />
               </div>
 
@@ -142,7 +145,7 @@ export default function Splash({ onComplete }: SplashProps) {
                   fontFamily: "'Fredoka', sans-serif",
                   fontSize: "26px",
                   fontWeight: 600,
-                  color: "#ffffff",
+                  color: "#0A1628",
                   textAlign: "center",
                   lineHeight: 1.2,
                   margin: 0,
