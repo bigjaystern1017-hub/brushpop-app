@@ -2,16 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useClinic } from "@/hooks/useClinic";
 
-const INSTALL_DISMISSED_KEY = "brushpop_install_dismissed";
-
-function isStandalone(): boolean {
-  return window.matchMedia("(display-mode: standalone)").matches;
-}
-
-function isInstallDismissed(): boolean {
-  return localStorage.getItem(INSTALL_DISMISSED_KEY) === "true";
-}
-
 interface SplashProps {
   onComplete: () => void;
 }
@@ -19,25 +9,13 @@ interface SplashProps {
 export default function Splash({ onComplete }: SplashProps) {
   const clinic = useClinic();
   const [visible, setVisible] = useState(true);
-  const [showInstall, setShowInstall] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 2000);
+    }, 5000);
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    if (!isStandalone() && !isInstallDismissed()) {
-      setShowInstall(true);
-    }
-  }, []);
-
-  function dismissInstall() {
-    localStorage.setItem(INSTALL_DISMISSED_KEY, "true");
-    setShowInstall(false);
-  }
 
   return (
     <AnimatePresence onExitComplete={onComplete}>
@@ -45,7 +23,7 @@ export default function Splash({ onComplete }: SplashProps) {
         <motion.div
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-start pt-[14dvh]"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-start pt-[8dvh]"
           style={{
             backgroundImage: "url('/app-bg.png')",
             backgroundSize: "cover",
@@ -97,7 +75,8 @@ export default function Splash({ onComplete }: SplashProps) {
             <motion.img
               src="/brushpop-logo.png"
               alt="BrushPop"
-              className="h-[363px] drop-shadow-2xl relative"
+              className="drop-shadow-2xl relative"
+              style={{ width: "260px", height: "auto" }}
               initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
@@ -112,7 +91,7 @@ export default function Splash({ onComplete }: SplashProps) {
               fontSize: "18px",
               color: "#ffffff",
               fontWeight: 500,
-              marginTop: "10px",
+              marginTop: "16px",
               textAlign: "center",
             }}
             initial={{ opacity: 0, y: 6 }}
@@ -138,7 +117,7 @@ export default function Splash({ onComplete }: SplashProps) {
                   alignItems: "center",
                   gap: "10px",
                   width: "100%",
-                  marginBottom: "16px",
+                  marginBottom: "12px",
                 }}
               >
                 <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.35)" }} />
@@ -164,10 +143,10 @@ export default function Splash({ onComplete }: SplashProps) {
                   src={clinic.logoUrl}
                   alt={clinic.name}
                   style={{
-                    width: "180px",
+                    width: "160px",
                     height: "auto",
                     display: "block",
-                    marginBottom: "12px",
+                    marginBottom: "8px",
                   }}
                 />
               )}
@@ -189,12 +168,12 @@ export default function Splash({ onComplete }: SplashProps) {
             </motion.div>
           )}
 
-          {/* Mascot — floating animation, 220px wide, no background */}
+          {/* Mascot — floating animation, 180px wide, no background */}
           <motion.img
             src="/brushpop_mascot_clean_transparent.png"
             alt="BrushPop mascot"
             className="relative z-10"
-            style={{ width: "220px", height: "auto", marginTop: "24px" }}
+            style={{ width: "180px", height: "auto", marginTop: "24px" }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: [0, -8, 0] }}
             transition={{
@@ -203,147 +182,6 @@ export default function Splash({ onComplete }: SplashProps) {
             }}
           />
 
-          {/* Install prompt — floating bar pinned to bottom, above disclaimer area */}
-          {showInstall && (
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.35, ease: "easeOut" }}
-              style={{
-                position: "absolute",
-                bottom: "24px",
-                left: "5%",
-                width: "90%",
-                zIndex: 20,
-              }}
-            >
-              <div
-                style={{
-                  backgroundColor: "#ffffff",
-                  borderRadius: "12px",
-                  boxShadow: "0 4px 16px rgba(10,22,40,0.18)",
-                  padding: "12px 14px 10px",
-                  position: "relative",
-                  fontFamily: "'DM Sans', sans-serif",
-                }}
-              >
-                {/* Dismiss X button */}
-                <button
-                  onClick={dismissInstall}
-                  aria-label="Dismiss install prompt"
-                  style={{
-                    position: "absolute",
-                    top: "8px",
-                    right: "10px",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: "2px 4px",
-                    color: "#94A3B8",
-                    fontSize: "14px",
-                    lineHeight: 1,
-                  }}
-                >
-                  ✕
-                </button>
-
-                {/* Three steps in a horizontal row */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
-                    gap: "4px",
-                    paddingRight: "18px",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {/* Step 1 */}
-                  <div style={{ flex: 1, textAlign: "center" }}>
-                    <div style={{ fontSize: "18px", marginBottom: "3px" }}>📲</div>
-                    <div
-                      style={{
-                        fontSize: "12px",
-                        color: "#0A1628",
-                        fontWeight: 600,
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      Open in Safari
-                    </div>
-                  </div>
-
-                  {/* Separator arrow */}
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#94A3B8",
-                      alignSelf: "center",
-                      flexShrink: 0,
-                      paddingTop: "2px",
-                    }}
-                  >
-                    →
-                  </div>
-
-                  {/* Step 2 */}
-                  <div style={{ flex: 2, textAlign: "center" }}>
-                    <div style={{ fontSize: "18px", marginBottom: "3px" }}>⬆️</div>
-                    <div
-                      style={{
-                        fontSize: "12px",
-                        color: "#0A1628",
-                        fontWeight: 600,
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      Tap Share → Add to Home Screen
-                    </div>
-                  </div>
-
-                  {/* Separator arrow */}
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#94A3B8",
-                      alignSelf: "center",
-                      flexShrink: 0,
-                      paddingTop: "2px",
-                    }}
-                  >
-                    →
-                  </div>
-
-                  {/* Step 3 */}
-                  <div style={{ flex: 1, textAlign: "center" }}>
-                    <div style={{ fontSize: "18px", marginBottom: "3px" }}>🏠</div>
-                    <div
-                      style={{
-                        fontSize: "12px",
-                        color: "#0A1628",
-                        fontWeight: 600,
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      Launch from Home Screen
-                    </div>
-                  </div>
-                </div>
-
-                {/* Subtext */}
-                <div
-                  style={{
-                    fontSize: "11px",
-                    color: "#94A3B8",
-                    textAlign: "center",
-                    lineHeight: 1.4,
-                  }}
-                >
-                  For the best experience, add BrushPop to your home screen.
-                </div>
-              </div>
-            </motion.div>
-          )}
         </motion.div>
       )}
     </AnimatePresence>
