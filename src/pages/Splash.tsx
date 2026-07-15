@@ -30,131 +30,127 @@ export default function Splash({ onComplete }: SplashProps) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "flex-start",
+            paddingTop: "10dvh",
+            paddingLeft: "24px",
+            paddingRight: "24px",
+            paddingBottom: "24px",
             backgroundImage: "url('/app-bg.png')",
             backgroundSize: "cover",
             backgroundPosition: "top center",
-            padding: "32px",
           }}
         >
-          {/* BrushPop Logo */}
+
+          {/* BrushPop Logo — large and proud */}
           <motion.img
             src="/brushpop-logo.png"
             alt="BrushPop"
-            style={{ width: "300px", height: "auto" }}
+            style={{ width: "80%", maxWidth: "320px", height: "auto" }}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           />
 
-          {/* Tagline */}
-          <motion.p
-            style={{
-              fontFamily: "'Fredoka', sans-serif",
-              fontSize: "20px",
-              color: "#0A1628",
-              fontWeight: 500,
-              marginTop: "12px",
-              textAlign: "center",
-              textShadow: "0 1px 3px rgba(255,255,255,0.4)",
-            }}
-            initial={{ opacity: 0, y: 6 }}
+          {/* Hero tagline — graphic treatment */}
+          <motion.img
+            src="/tagline-treatment.png"
+            alt="Pop the plaque. Reveal the prize."
+            style={{ width: "90%", maxWidth: "340px", height: "auto", marginTop: "12px" }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.4 }}
-          >
-            Pop the plaque. Reveal the prize.
-          </motion.p>
+            transition={{ delay: 0.2, duration: 0.4 }}
+          />
 
-          {/* Clinic branding block */}
+          {/* Clinic branding card */}
           {clinic.showBranding && (
             <motion.div
               style={{
-                marginTop: "40px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                marginTop: "28px",
                 width: "100%",
               }}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
+              transition={{ delay: 0.4, duration: 0.4 }}
             >
-              {/* Presented by label */}
+              {/* BROUGHT TO YOU BY badge */}
               <div
                 style={{
                   display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  width: "100%",
-                  marginBottom: "20px",
+                  justifyContent: "center",
+                  marginBottom: "12px",
                 }}
               >
-                <div style={{
-                  flex: 1,
-                  height: "1px",
-                  backgroundColor: "rgba(10,22,40,0.25)"
-                }} />
-                <span
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: "11px",
-                    color: "rgba(10,22,40,0.5)",
-                    fontWeight: 600,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Presented by
-                </span>
-                <div style={{
-                  flex: 1,
-                  height: "1px",
-                  backgroundColor: "rgba(10,22,40,0.25)"
-                }} />
-              </div>
-
-              {/* Clinic logo — only shown when a real logo exists */}
-              {clinic.logoUrl && clinic.logoUrl !== "/brushpop-logo.png" && (
                 <div
                   style={{
-                    backgroundColor: "#ffffff",
-                    borderRadius: "16px",
-                    padding: "16px 24px",
-                    marginBottom: "16px",
-                    display: "flex",
+                    backgroundColor: "#0EA5E9",
+                    borderRadius: "20px",
+                    padding: "4px 16px",
+                    display: "inline-flex",
                     alignItems: "center",
-                    justifyContent: "center",
+                    gap: "6px",
                   }}
                 >
+                  <span
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: "11px",
+                      color: "#ffffff",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Brought to you by
+                  </span>
+                </div>
+              </div>
+
+              {/* White clinic card */}
+              <div
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "20px",
+                  padding: "24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 4px 20px rgba(10,22,40,0.12)",
+                  minHeight: "140px",
+                }}
+              >
+                {/* Clinic logo if available */}
+                {clinic.logoUrl && clinic.logoUrl !== "/brushpop-logo.png" ? (
                   <img
                     src={clinic.logoUrl}
                     alt={clinic.name}
                     style={{
-                      width: "200px",
+                      width: "100%",
+                      maxWidth: "240px",
                       height: "auto",
                       display: "block",
                     }}
                   />
-                </div>
-              )}
-
-              {/* Clinic name */}
-              <p
-                style={{
-                  fontFamily: "'Fredoka', sans-serif",
-                  fontSize: "26px",
-                  fontWeight: 600,
-                  color: "#0A1628",
-                  textAlign: "center",
-                  lineHeight: 1.2,
-                  margin: 0,
-                }}
-              >
-                {clinic.name}
-              </p>
+                ) : (
+                  /* Fallback: just the practice name, large */
+                  <p
+                    style={{
+                      fontFamily: "'Fredoka', sans-serif",
+                      fontSize: "28px",
+                      fontWeight: 600,
+                      color: "#0A1628",
+                      textAlign: "center",
+                      lineHeight: 1.2,
+                      margin: 0,
+                    }}
+                  >
+                    {clinic.name}
+                  </p>
+                )}
+              </div>
             </motion.div>
           )}
+
         </motion.div>
       )}
     </AnimatePresence>
