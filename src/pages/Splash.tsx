@@ -31,7 +31,7 @@ export default function Splash({ onComplete }: SplashProps) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "flex-start",
-            paddingTop: "10dvh",
+            paddingTop: "6dvh",
             paddingLeft: "24px",
             paddingRight: "24px",
             paddingBottom: "24px",
@@ -45,7 +45,7 @@ export default function Splash({ onComplete }: SplashProps) {
           <motion.img
             src="/brushpop-logo.png"
             alt="BrushPop"
-            style={{ width: "80%", maxWidth: "320px", height: "auto" }}
+            style={{ width: "88%", maxWidth: "360px", height: "auto" }}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
@@ -55,7 +55,7 @@ export default function Splash({ onComplete }: SplashProps) {
           <motion.img
             src="/tagline-treatment.png"
             alt="Pop the plaque. Reveal the prize."
-            style={{ width: "90%", maxWidth: "340px", height: "auto", marginTop: "12px" }}
+            style={{ width: "92%", maxWidth: "360px", height: "auto", marginTop: "8px" }}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.4 }}
@@ -65,7 +65,7 @@ export default function Splash({ onComplete }: SplashProps) {
           {clinic.showBranding && (
             <motion.div
               style={{
-                marginTop: "28px",
+                marginTop: "16px",
                 width: "100%",
               }}
               initial={{ opacity: 0, y: 10 }}
