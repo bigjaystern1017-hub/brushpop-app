@@ -104,60 +104,7 @@ export default function Splash({ onComplete }: SplashProps) {
             />
           </div>
 
-          {/* Clinic logo block — shown when a real (non-default) logo is set */}
-          {clinic.showBranding &&
-            clinic.logoUrl &&
-            clinic.logoUrl !== "/brushpop-logo.png" && (
-              <motion.div
-                className="relative z-10"
-                style={{ marginTop: "24px" }}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.4, ease: "easeOut" }}
-              >
-                <div
-                  style={{
-                    backgroundColor: "#ffffff",
-                    borderRadius: "12px",
-                    padding: "8px",
-                    display: "inline-block",
-                  }}
-                >
-                  <img
-                    src={clinic.logoUrl}
-                    alt={clinic.name}
-                    style={{ width: "120px", height: "auto", display: "block" }}
-                  />
-                </div>
-              </motion.div>
-            )}
-
-          {/* Dentist branding pill — 24px below logo (or 8px below clinic logo block) */}
-          {clinic.showBranding && (
-            <motion.div
-              className="flex items-center bg-white/82 backdrop-blur-sm rounded-full px-4 py-2.5 shadow-md relative z-10"
-              style={{
-                marginTop:
-                  clinic.logoUrl && clinic.logoUrl !== "/brushpop-logo.png"
-                    ? "8px"
-                    : "24px",
-              }}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45, duration: 0.4, ease: "easeOut" }}
-            >
-              <div className="text-center">
-                <p className="text-[10px] font-semibold text-foreground/50 uppercase tracking-wide leading-none mb-0.5">
-                  Presented by
-                </p>
-                <p className="text-base font-black text-foreground leading-tight">
-                  {clinic.name}
-                </p>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Tagline — between pill and mascot */}
+          {/* Tagline — directly below BrushPop logo */}
           <motion.p
             className="relative z-10"
             style={{
@@ -170,17 +117,84 @@ export default function Splash({ onComplete }: SplashProps) {
             }}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.4 }}
+            transition={{ delay: 0.4, duration: 0.4 }}
           >
             Pop the plaque. Reveal the prize.
           </motion.p>
+
+          {/* Clinic sponsor block */}
+          {clinic.showBranding && (
+            <motion.div
+              className="relative z-10 flex flex-col items-center w-full"
+              style={{ marginTop: "20px", paddingLeft: "32px", paddingRight: "32px" }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+            >
+              {/* ——— Presented by ——— */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  width: "100%",
+                  marginBottom: "16px",
+                }}
+              >
+                <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.35)" }} />
+                <span
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "11px",
+                    color: "rgba(255,255,255,0.6)",
+                    fontWeight: 600,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Presented by
+                </span>
+                <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(255,255,255,0.35)" }} />
+              </div>
+
+              {/* Clinic logo — raw image, only when a real logo is set */}
+              {clinic.logoUrl && clinic.logoUrl !== "/brushpop-logo.png" && (
+                <img
+                  src={clinic.logoUrl}
+                  alt={clinic.name}
+                  style={{
+                    width: "180px",
+                    height: "auto",
+                    display: "block",
+                    marginBottom: "12px",
+                  }}
+                />
+              )}
+
+              {/* Clinic name */}
+              <p
+                style={{
+                  fontFamily: "'Fredoka', sans-serif",
+                  fontSize: "22px",
+                  fontWeight: 600,
+                  color: "#ffffff",
+                  textAlign: "center",
+                  lineHeight: 1.25,
+                  margin: 0,
+                }}
+              >
+                {clinic.name}
+              </p>
+            </motion.div>
+          )}
 
           {/* Mascot — floating animation, 220px wide, no background */}
           <motion.img
             src="/brushpop_mascot_clean_transparent.png"
             alt="BrushPop mascot"
             className="relative z-10"
-            style={{ width: "220px", height: "auto", marginTop: "32px" }}
+            style={{ width: "220px", height: "auto", marginTop: "24px" }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: [0, -8, 0] }}
             transition={{
