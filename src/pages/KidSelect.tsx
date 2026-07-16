@@ -60,26 +60,91 @@ export default function KidSelect() {
 
           {/* Dentist branding pill — second thing a parent sees */}
           {clinic.showBranding && (
-            <div className="flex items-center gap-3 bg-white/82 backdrop-blur-sm rounded-full px-4 py-2.5 shadow-md">
-              {/* Clinic logo circle */}
-              <div className="w-9 h-9 rounded-full bg-sky-50 border-2 border-white/80 flex items-center justify-center overflow-hidden flex-shrink-0 shadow-sm">
-                {clinic.logoUrl ? (
-                  <img src={clinic.logoUrl} alt={clinic.name} className="w-full h-full object-contain p-0.5" />
-                ) : (
-                  <span className="text-xl leading-none">🦷</span>
-                )}
+            <motion.div
+              style={{
+                marginTop: "12px",
+                width: "100%",
+                paddingLeft: "16px",
+                paddingRight: "16px",
+              }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
+            >
+              {/* BROUGHT TO YOU BY badge */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: "#0EA5E9",
+                    borderRadius: "20px",
+                    padding: "4px 16px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: "11px",
+                      color: "#ffffff",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Brought to you by
+                  </span>
+                </div>
               </div>
 
-              {/* Text */}
-              <div className="text-left pr-1">
-                <p className="text-[10px] font-semibold text-foreground/50 uppercase tracking-wide leading-none mb-0.5">
-                  Presented by
-                </p>
-                <p className="text-base font-black text-foreground leading-tight">
-                  {clinic.name}
-                </p>
+              {/* White clinic card */}
+              <div
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "20px",
+                  padding: "20px 24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 4px 20px rgba(10,22,40,0.12)",
+                  minHeight: "100px",
+                }}
+              >
+                {clinic.logoUrl && clinic.logoUrl !== "/brushpop-logo.png" ? (
+                  <img
+                    src={clinic.logoUrl}
+                    alt={clinic.name}
+                    style={{
+                      width: "100%",
+                      maxWidth: "200px",
+                      height: "auto",
+                      display: "block",
+                    }}
+                  />
+                ) : (
+                  <p
+                    style={{
+                      fontFamily: "'Fredoka', sans-serif",
+                      fontSize: "24px",
+                      fontWeight: 600,
+                      color: "#0A1628",
+                      textAlign: "center",
+                      lineHeight: 1.2,
+                      margin: 0,
+                    }}
+                  >
+                    {clinic.name}
+                  </p>
+                )}
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
 
