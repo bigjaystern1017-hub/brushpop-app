@@ -31,12 +31,12 @@ export default function NavDrawer() {
     {
       emoji: "🔥",
       label: "Streak Tracker",
-      path: singleProfile ? `/streak/${singleProfile.id}` : "/",
+      path: profiles.length > 0 ? `/streak/${profiles[0].id}` : "/",
     },
     {
       emoji: "📸",
       label: "Photo Library",
-      path: singleProfile ? `/photos/${singleProfile.id}` : "/",
+      path: profiles.length > 0 ? `/photos/${profiles[0].id}` : "/",
     },
     { emoji: "🦷", label: "About Our Practice", path: "/about" },
   ];
