@@ -31,7 +31,7 @@ export default function Splash({ onComplete }: SplashProps) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "flex-start",
-            paddingTop: "6dvh",
+            paddingTop: "4dvh",
             paddingLeft: "24px",
             paddingRight: "24px",
             paddingBottom: "24px",
@@ -45,7 +45,7 @@ export default function Splash({ onComplete }: SplashProps) {
           <motion.img
             src="/brushpop-logo.png"
             alt="BrushPop"
-            style={{ width: "88%", maxWidth: "360px", height: "auto" }}
+            style={{ width: "88%", maxWidth: "400px", height: "auto" }}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
